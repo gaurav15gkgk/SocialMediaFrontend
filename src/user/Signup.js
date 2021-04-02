@@ -98,7 +98,7 @@ class Signup extends Component {
                 </form>
     )
 
-    
+
     //warning and confirmation messages
     Message = (error, open) => (
         <>
@@ -122,10 +122,8 @@ class Signup extends Component {
             //SignUp page
             <div className="box box-shadow container mt-6"> 
                 <h2 className ="title">Signup</h2>
-                
-            {this.Message(error, open)}    
-            {this.signupForm(name, email, password)}
-                
+                {this.Message(error, open)}    
+                {this.signupForm(name, email, password)}
             </div>
         )
     }
