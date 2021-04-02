@@ -8,7 +8,8 @@ class Signup extends Component {
             email: "",
             password: "",
             error: "",
-            open: false
+            open: false,
+            loading: false
 
 
         };
@@ -22,6 +23,7 @@ class Signup extends Component {
     //sending data to backend when submit button is clicked
     clickSubmit = event => {
         event.preventDefault()
+        this.setState({loading:true})
         const { name, email, password }= this.state
         const user = {
             name,
@@ -30,7 +32,7 @@ class Signup extends Component {
         }
         this.signup(user).then(data => {
             if(data.error){
-                this.setState({ error : data.error})
+                this.setState({ error : data.error, loading:false})
             }
             else{
                 this.setState({
@@ -38,7 +40,8 @@ class Signup extends Component {
                     name: "",
                     email:"",
                     password: "",
-                    open: true
+                    open: true,
+                    loading: false
                 })
             }
         })
@@ -94,7 +97,7 @@ class Signup extends Component {
                             className = "input is-rounded"
                             value = {password} ></input>
                     </div>
-                    <button onClick = {this.clickSubmit} className = "button is-dark is-rounded is-active">SUBMIT</button>
+                    <button onClick = {this.clickSubmit} className = "button is-dark is-rounded is-focused ">SUBMIT</button>
                 </form>
     )
 
@@ -117,12 +120,15 @@ class Signup extends Component {
                 </>
     )
     render(){
-        const { name, email, password, error, open} = this.state;
+        const { name, email, password, error, open,loading} = this.state;
         return (
             //SignUp page
             <div className="box box-shadow container mt-6"> 
                 <h2 className ="title">Signup</h2>
                 {this.Message(error, open)}    
+                {loading ?(
+                    <progress class="progress is-small is-dark" max="100">15%</progress>
+                ):("")}
                 {this.signupForm(name, email, password)}
             </div>
         )
