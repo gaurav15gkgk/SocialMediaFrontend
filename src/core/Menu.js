@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { signout, isAuthenticated } from "../auth"
 
 const isActive = (history, path) => {
     if(history.location.pathname === path){
@@ -13,30 +14,8 @@ const isActive = (history, path) => {
    
 };
 
-const signout = next => {
-    if (typeof window !== "undefined") localStorage.removeItem("jwt");
-    next();
-    return fetch("http://localhost:8080/signout", {
-        method: "GET"
-    })
-        .then(response => {
-            
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
 
-const isAuthenticated = () => {
-    if (typeof window == "undefined") {
-        return false;
-    }
 
-    if (localStorage.getItem("jwt")) {
-        return JSON.parse(localStorage.getItem("jwt"));
-    } else {
-        return false;
-    }
-};
 
 const Menu = ({ history }) =>(
     <div className="tabs is-centered is-boxed mt-3">
