@@ -47,6 +47,7 @@ const Menu = ({ history }) =>(
             {isAuthenticated() && 
                 <>
                      <li>
+                        
                         <a href style ={isActive(history,'/signin'),
                             {cursor: "pointer", color: "#363636"}
                             
@@ -57,7 +58,7 @@ const Menu = ({ history }) =>(
                     </li>
 
                     <li>
-                        <a href >{isAuthenticated().user.name}</a>
+                        <Link to ={`/user/${isAuthenticated().user._id}`} >{`${isAuthenticated().user.name}'s Profile`}</Link>
                     </li>
            
                 </>

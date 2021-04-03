@@ -1,5 +1,7 @@
+
 const signin = user => {
-    return fetch("http://localhost:8080/signin", {
+    
+    return fetch(`http://localhost:8080/signin`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -17,7 +19,7 @@ const signin = user => {
 
 //signup function to send an api request to backend for creating a user
 const signup = user => {
-    return  fetch("http://localhost:8080/signup", {
+    return  fetch(`http://localhost:8080/signup`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -53,7 +55,7 @@ const authenticate = (jwt, next) =>{
 const signout = next => {
     if (typeof window !== "undefined") localStorage.removeItem("jwt");
     next();
-    return fetch("http://localhost:8080/signout", {
+    return fetch(`http://localhost:8080/signout`, {
         method: "GET"
     })
         .then(response => {
