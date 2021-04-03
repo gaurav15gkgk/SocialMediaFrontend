@@ -28,15 +28,30 @@ class Profile extends Component {
         this.init(userId) 
     }
     render(){
-        const redirectToSignin = this.state.redirectToSignin;
+        const {redirectToSignin, user} = this.state;
         if(redirectToSignin)
             return <Redirect to ='/signin' />
         return(
             <div className="box box-shadow container mt-6">
                 <div className="title"> Profile</div>
-                <div>Hello {isAuthenticated().user.name}</div>
-                <div>Email: {isAuthenticated().user.email}</div>
-                <div>{`Joined ${new Date(this.state.user.created).toDateString()}`}</div>
+                <div className = "columns">
+                    <div className ="column">
+                        <div>Hello {isAuthenticated().user.name}</div>
+                        <div>Email: {isAuthenticated().user.email}</div>
+                        <div>{`Joined ${new Date(this.state.user.created).toDateString()}`}</div>
+                    </div>
+
+                    <div className = "column">
+                        {isAuthenticated().user && isAuthenticated().user._id === user._id && (
+                         <div class="buttons">
+                            <button class="button is-warning ">Edit</button>
+                            <button class="button is-danger ">Delete</button>
+                          </div>
+                          
+                        )} 
+                    </div>
+                </div>
+               
             </div>
         )
     }
