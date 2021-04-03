@@ -3,6 +3,8 @@ import { isAuthenticated } from '../auth'
 import { Redirect } from 'react-router-dom'
 import {read } from './apiUser'
 import DefaultProfile from '../images/avatar.png'
+import DeleteUser from './DeleteUser'
+import { Link } from 'react-router-dom'
 
 class Profile extends Component {
     constructor(){
@@ -59,8 +61,8 @@ class Profile extends Component {
                     <div className = "column">
                     {isAuthenticated().user && isAuthenticated().user._id === user._id && (
                          <div class="buttons">
-                            <button class="button is-warning  ">Edit</button>
-                            <button class="button is-danger ">Delete</button>
+                            <Link className="button is-warning  " to= {`/user/edit/${user._id}`}>Edit profile</Link>
+                            <DeleteUser userId = {user._id} />
                           </div>
                           
                         )} 

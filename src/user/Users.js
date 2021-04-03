@@ -25,7 +25,7 @@ class Users extends Component {
     renderUsers = users => (
         < >
             {users.map((user, i) => (
-                <div className =" card  column  is-one-third" key = {i}>
+                <div className =" card  column  is-one-third mt-2 " key = {i}>
                      <div className=" card-image">
                             <figure >
                             <img src={DefaultProfile} alt={user.name}  style={{
@@ -37,9 +37,9 @@ class Users extends Component {
                      <div className ="card-content" >
                         <div className="content">{user.name}</div>
                         <div className="content">{user.email}</div>  
-                        <div className ="card-footer">
-                        <Link to ={`/user/${user._id}`} class="button is-warning card-footer-item">View Profile</Link> 
-                        </div>
+                        
+                        <Link to ={`/user/${user._id}`} class="button is-warning ">View Profile</Link> 
+                        
                          
                      </div>
                     
