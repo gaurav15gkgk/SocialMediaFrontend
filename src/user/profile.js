@@ -2,6 +2,7 @@ import React , { Component } from 'react'
 import { isAuthenticated } from '../auth'
 import { Redirect } from 'react-router-dom'
 import {read } from './apiUser'
+import DefaultProfile from '../images/avatar.png'
 
 class Profile extends Component {
     constructor(){
@@ -27,6 +28,11 @@ class Profile extends Component {
         const userId = this.props.match.params.userId;
         this.init(userId) 
     }
+
+    componentWillRecieveProps(props){
+        const userId = props.match.params.userId
+        this.init(userId)
+    }
     render(){
         const {redirectToSignin, user} = this.state;
         if(redirectToSignin)
@@ -36,19 +42,32 @@ class Profile extends Component {
                 <div className="title"> Profile</div>
                 <div className = "columns">
                     <div className ="column">
-                        <div>Hello {isAuthenticated().user.name}</div>
-                        <div>Email: {isAuthenticated().user.email}</div>
-                        <div>{`Joined ${new Date(this.state.user.created).toDateString()}`}</div>
+                        <div >
+                        <div className="card-image">
+                            <figure >
+                            <img src={DefaultProfile} alt={user.name}  style={{
+                                width: "50%",
+                                objectFit: "cover"
+                            }}></img>
+                            </figure>
+                        </div>
+                        </div>
+                        
+                       
                     </div>
 
                     <div className = "column">
-                        {isAuthenticated().user && isAuthenticated().user._id === user._id && (
+                    {isAuthenticated().user && isAuthenticated().user._id === user._id && (
                          <div class="buttons">
-                            <button class="button is-warning ">Edit</button>
+                            <button class="button is-warning  ">Edit</button>
                             <button class="button is-danger ">Delete</button>
                           </div>
                           
                         )} 
+                    <div>Hello {user.name}</div>
+                        <div>Email: {user.email}</div>
+                        <div>{`Joined ${new Date(this.state.user.created).toDateString()}`}</div>
+                       
                     </div>
                 </div>
                

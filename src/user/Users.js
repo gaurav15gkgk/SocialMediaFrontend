@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { list } from './apiUser'
+import DefaultProfile from '../images/avatar.png'
+import { Link } from 'react-router-dom'
 
 class Users extends Component {
     constructor(){
@@ -20,6 +22,32 @@ class Users extends Component {
         })
     }
 
+    renderUsers = users => (
+        < >
+            {users.map((user, i) => (
+                <div className =" card  column  is-one-third" key = {i}>
+                     <div className=" card-image">
+                            <figure >
+                            <img src={DefaultProfile} alt={user.name}  style={{
+                                width: "50%",
+                                objectFit: "cover"
+                            }}></img>
+                            </figure>
+                     </div>
+                     <div className ="card-content" >
+                        <div className="content">{user.name}</div>
+                        <div className="content">{user.email}</div>  
+                        <div className ="card-footer">
+                        <Link to ={`/user/${user._id}`} class="button is-warning card-footer-item">View Profile</Link> 
+                        </div>
+                         
+                     </div>
+                    
+                </div>
+            ))}
+        </>
+    )
+
     render(){
         const { users } = this.state;
         return (
@@ -27,17 +55,10 @@ class Users extends Component {
                 
                 <div className = "box container ">
                     <div className = "title">Users</div>
-                        <div className = "block">
-                        {users.map((user, i) => (
-                                <>
-                                    <div className = "card" key = {i}>
-                                        <div  > {user.name}</div>
-                                    </div>
-                                
-                                </>
-                                
-                            ))}
-                    </div>
+                        <div className = "columns is-multiline " >
+                        {this.renderUsers(users)}
+                        
+                        </div>
                         
                 
                 </div>
