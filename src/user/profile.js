@@ -1,6 +1,7 @@
 import React , { Component } from 'react'
 import { isAuthenticated } from '../auth'
 import { Redirect } from 'react-router-dom'
+import {read } from './apiUser'
 
 class Profile extends Component {
     constructor(){
@@ -11,28 +12,20 @@ class Profile extends Component {
         }
     }
 
-    async componentDidMount(){
+    init = userId => {
+        const token = isAuthenticated().token;
+        read(userId, token).then(data => {
+            if (data.error) {
+                this.setState({ redirectToSignin: true });
+            } else {
+                this.setState({ user: data });
+            }
+        });
+    };
+
+    componentDidMount(){
         const userId = this.props.match.params.userId;
-        await fetch(`http://localhost:8080/user/${userId}`, {
-            method: "GET",
-            headers: {
-                Accept:"application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${isAuthenticated().token}`
-            }
-        })
-
-        .then(response => {
-            return response.json()
-        })
-
-        .then( data => {
-            if(data.error){
-                this.setState({ redirectToSignin: true})
-            }else{
-                this.setState({ user: data })
-            }
-        })
+        this.init(userId) 
     }
     render(){
         const redirectToSignin = this.state.redirectToSignin;
